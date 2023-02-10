@@ -1,26 +1,31 @@
 import Head from 'next/head';
-import { getLigaFutveStandings, getThisWeekFixtures } from '@/api_football';
+import {
+	getLigaFutveStandings,
+	getThisWeekFixtures,
+} from '@/api_football/footballApi';
 import { useQuery } from '@tanstack/react-query';
 import { LeagueFixture } from '@/types/leagueTypes';
 
 export default function Home() {
-	// const {
-	// 	isLoading,
-	// 	isError,
-	// 	isSuccess,
-	// 	isFetching,
-	// 	data: standings,
-	// } = useQuery(['getLigaFutveStandings'], getLigaFutveStandings);
-
 	const {
 		isLoading,
 		isError,
 		isSuccess,
 		isFetching,
-		data: fixtures,
-	} = useQuery(['getLeageFixtures'], getThisWeekFixtures, {
+		data: standings,
+	} = useQuery(['getLigaFutveStandings'], getLigaFutveStandings, {
 		onSuccess: (data) => console.log(data),
 	});
+
+	// const {
+	// 	isLoading,
+	// 	isError,
+	// 	isSuccess,
+	// 	isFetching,
+	// 	data: fixtures,
+	// } = useQuery(['getLeageFixtures'], getThisWeekFixtures, {
+	// 	onSuccess: (data) => console.log(data),
+	// });
 
 	return (
 		<>
@@ -31,7 +36,9 @@ export default function Home() {
 			</Head>
 			<main>
 				{isFetching && <p>is fetching!</p>}
-				{isSuccess &&
+				{/* {isSuccess &&
+					} */}
+				{/* {isSuccess &&
 					fixtures.map((leagueFixture: LeagueFixture) => (
 						<div key={leagueFixture.fixture.id}>
 							<div className="flex">
@@ -43,7 +50,7 @@ export default function Home() {
 
 							<p>{new Date(leagueFixture.fixture.date).toLocaleDateString()}</p>
 						</div>
-					))}
+					))} */}
 			</main>
 		</>
 	);

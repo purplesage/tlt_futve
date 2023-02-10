@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { isThisWeek } from 'date-fns';
 import { LeagueFixture } from '@/types/leagueTypes';
+import { StandingsResponse } from '@/types/standings';
 
 const footballApi: AxiosInstance = axios.create({
 	baseURL: 'https://v3.football.api-sports.io',
@@ -10,16 +11,22 @@ const footballApi: AxiosInstance = axios.create({
 	},
 });
 
-export const getCountries = async (): Promise<AxiosResponse> => {
+export const getCountries = async () => {
 	const response = await footballApi.get('/countries');
 
 	return response.data;
 };
 
-export const getLigaFutveStandings = async (): Promise<AxiosResponse> => {
+export const getLigaFutveStandings = async (): Promise<StandingsResponse> => {
 	const response = await footballApi.get('/standings?league=299&season=2023');
 
-	return response.data;
+	// return response.data.response;
+
+	return response.data.response[0].league.standings;
+
+	return response.data.response.map(
+		(item: StandingsResponse) => item.league.standings
+	);
 };
 
 export const getThisWeekFixtures = async () => {
