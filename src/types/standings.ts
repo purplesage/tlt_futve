@@ -1,4 +1,4 @@
-interface MatchesData {
+interface Stats {
 	draw: number;
 	goals: { for: number; against: number };
 	lose: number;
@@ -12,14 +12,10 @@ interface Team {
 	name: string;
 }
 
-interface TeamRow {
+export interface TeamRow {
 	rank: number;
 	points: number;
 	goalsDiff: number;
-	all: MatchesData;
+	all: Stats;
 	team: Team;
-}
-
-export interface StandingsResponse {
-	league: { standings: TeamRow[] };
 }
