@@ -6,7 +6,7 @@ interface Stats {
 	win: number;
 }
 
-interface Team {
+export interface Team {
 	id: number;
 	logo: string;
 	name: string;

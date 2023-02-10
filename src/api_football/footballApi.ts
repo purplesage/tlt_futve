@@ -1,7 +1,8 @@
-import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import axios, { AxiosInstance } from 'axios';
 import { isThisWeek } from 'date-fns';
 import { LeagueFixture } from '@/types/leagueTypes';
 import { TeamRow } from '@/types/standings';
+import { TeamStats } from '@/types/teamStatsTypes';
 
 const footballApi: AxiosInstance = axios.create({
 	baseURL: 'https://v3.football.api-sports.io',
@@ -28,4 +29,18 @@ export const getThisWeekFixtures = async (): Promise<LeagueFixture[]> => {
 	return response.data.response.filter((leagueFixture: LeagueFixture) =>
 		isThisWeek(new Date(leagueFixture.fixture.date))
 	);
+};
+
+export const getTeamStats = async (id: string): Promise<TeamStats> => {
+	const response = await footballApi.get(
+		`/teams/statistics?season=2023&team=${id}&league=299`
+	);
+
+	return response.data.response;
+};
+
+export const getPlayerStats = async (id: string) => {
+	const response = await footballApi.get(`players?id=${id}&season=2023`);
+
+	return response.data.response;
 };

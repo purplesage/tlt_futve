@@ -1,6 +1,7 @@
 import { getLigaFutveStandings } from '@/api_football/footballApi';
 import { useQuery } from '@tanstack/react-query';
 import { TeamRow } from '@/types/standings';
+import Link from 'next/link';
 
 const Standings = () => {
 	const {
@@ -9,15 +10,21 @@ const Standings = () => {
 		isSuccess,
 		isFetching,
 		data: standings,
-	} = useQuery(['getLigaFutveStandings'], getLigaFutveStandings);
+	} = useQuery(['getLigaFutveStandings'], getLigaFutveStandings, {
+		onSuccess: (data) => console.log(data),
+	});
 
 	return (
 		<div>
 			{isFetching && <p>is fetching!</p>}
-			{isSuccess &&
-				standings.map((item: TeamRow, index: number) => (
-					<p key={index}>{item.team.name}</p>
-				))}
+			<div className="flex flex-col gap-5">
+				{isSuccess &&
+					standings.map((item: TeamRow, index: number) => (
+						<Link href={`/teamStats/${item.team.id}`} key={index}>
+							{item.team.name}
+						</Link>
+					))}
+			</div>
 		</div>
 	);
 };
