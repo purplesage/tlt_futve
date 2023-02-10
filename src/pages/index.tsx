@@ -1,6 +1,5 @@
 import Head from 'next/head';
-import { useState, useEffect } from 'react';
-import { getCountries, getLigaFutveStandings } from '@/api_football';
+import { getLigaFutveStandings } from '@/api_football';
 import { useQuery } from '@tanstack/react-query';
 
 export default function Home() {
