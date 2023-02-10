@@ -13,6 +13,8 @@ export default function App({ Component, pageProps }: AppProps) {
 				defaultOptions: {
 					queries: {
 						cacheTime: 1000 * 60 * 60 * 24,
+						staleTime: Infinity,
+						refetchOnReconnect: false,
 					},
 				},
 			})
